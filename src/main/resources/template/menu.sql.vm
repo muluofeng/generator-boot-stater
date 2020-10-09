@@ -1,0 +1,16 @@
+-- 菜单SQL
+
+INSERT INTO `sys_permission` ( `parent_id`, `title`, `url`, `perms`, `type`, `icon`, `order_num`, `hide_menu`, `name`, `path`)
+VALUES
+	(1, '${comments}', 'view/${moduleName}/${pathName}/index.vue', NULL, 1, 'logo-android', 0, 0, '${pathName}', '${pathName}');
+
+
+-- 按钮父菜单ID
+set @parentId = @@identity;
+
+-- 菜单对应子页面
+
+INSERT INTO `sys_permission` (`perm_id`, `parent_id`, `title`, `url`, `perms`, `type`, `icon`, `order_num`, `hide_menu`, `name`, `path`)
+VALUES
+	(@parentId, 1, '编辑', 'view/${moduleName}/${pathName}/edit.vue', NULL, 1, 'ios-people', 0, 1, '${pathName}_edit', '${pathName}/:id');
+

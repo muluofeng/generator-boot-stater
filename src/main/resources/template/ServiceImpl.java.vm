@@ -1,0 +1,25 @@
+package ${package}.${moduleName}.service.impl;
+
+import org.springframework.stereotype.Service;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import ${baseResponsePackage}.response.PageResult;
+import ${baseResponsePackage}.request.PageRequest;
+
+import ${package}.${moduleName}.dao.${className}Dao;
+import ${package}.${moduleName}.entity.${className};
+import ${package}.${moduleName}.service.${className}Service;
+
+
+@Service("${classname}Service")
+public class ${className}ServiceImpl extends ServiceImpl<${className}Dao, ${className}> implements ${className}Service {
+
+    @Override
+    public PageResult<${className}> queryPage(PageRequest pageRequest,QueryWrapper<${className}> queryWrapper) {
+        Page<${className}> page = new Page<>(pageRequest.getCurrentPage(), pageRequest.getPageSize());
+        Page<${className}> dataPage = this.page(page, queryWrapper);
+        return PageResult.fromPage(dataPage);
+    }
+}

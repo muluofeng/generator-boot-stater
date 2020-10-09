@@ -1,0 +1,35 @@
+package ${package}.${moduleName}.service;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
+import ${package}.${moduleName}.entity.${className};
+import ${baseResponsePackage}.response.PageResult;
+import ${baseResponsePackage}.request.PageRequest;
+
+import java.util.Map;
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+#if($generatorServiceInterface)
+public interface ${className}Service extends IService<${className}> {
+#else
+public class ${className}Service extends ServiceImpl<${className}Dao, ${className}> {
+#end
+
+#if($generatorServiceInterface)
+    PageResult<${className}> queryPage(PageRequest pageRequest,QueryWrapper<${className}> queryWrapper);
+#else
+    public PageResult<${className}> queryPage(PageRequest pageRequest,QueryWrapper<${className}> queryWrapper) {
+        Page<${className}> page = new Page<>(pageRequest.getCurrentPage(), pageRequest.getPageSize());
+        Page<${className}> dataPage = this.page(page, queryWrapper);
+        return PageResult.fromPage(dataPage);
+    }
+#end
+}
+

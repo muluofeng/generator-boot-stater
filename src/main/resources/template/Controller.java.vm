@@ -1,0 +1,137 @@
+package ${package}.${moduleName}.controller;
+
+import java.util.Arrays;
+import java.util.Map;
+##import com.framework.xing.common.validator.ValidatorUtils;
+#if($openShiro)
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+#end
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import ${package}.${moduleName}.entity.${className};
+import ${package}.${moduleName}.service.${className}Service;
+
+#if($openResponsePackage)
+import ${baseResponsePackage}.validator.ValidatorUtils;
+import ${baseResponsePackage}.response.CommonCode;
+import ${baseResponsePackage}.response.PageResult;
+import ${baseResponsePackage}.response.R;
+import ${baseResponsePackage}.request.PageRequest;
+#else
+import com.framework.xing.base.validator.ValidatorUtils;
+import com.framework.xing.base.response.Response;
+import com.framework.xing.base.response.SingleResponse;
+import com.framework.xing.base.response.PageResponse;
+#end
+
+#if($openSwagger)
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+#end
+
+
+
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+#if($openSwagger)
+@Api(tags = "${comments}")
+#end
+@RestController
+@RequestMapping("${moduleName}/${pathName}")
+public class ${className}Controller {
+    @Autowired
+    private ${className}Service ${classname}Service;
+
+    /**
+     * 列表
+     */
+    @GetMapping("/list")
+#if($openShiro)
+    @RequiresPermissions("${moduleName}:${pathName}:list")
+#end
+#if($openSwagger)
+    @ApiOperation("列表")
+#end
+    public  R<PageResult<${className}>> list(PageRequest  pageRequest){
+        PageResult<${className}> iPage = ${classname}Service.queryPage(pageRequest, null);
+        return R.ok(iPage);
+    }
+
+
+
+    /**
+     * 信息
+     */
+    @GetMapping("/info/{${pk.attrname}}")
+#if($openShiro)
+    @RequiresPermissions("${moduleName}:${pathName}:info")
+#end
+#if($openSwagger)
+    @ApiOperation("详情")
+#end
+    public R<${className}> info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
+        ${className} ${classname} = ${classname}Service.getById(${pk.attrname});
+
+        return R.ok(${classname});
+    }
+
+    /**
+     * 保存
+     */
+    @PostMapping("/save")
+#if($openShiro)
+    @RequiresPermissions("${moduleName}:${pathName}:save")
+#end
+#if($openSwagger)
+    @ApiOperation("保存")
+#end
+    public R save(@RequestBody ${className} ${classname}){
+        ${classname}Service.save(${classname});
+        return R.ok();
+    }
+
+    /**
+     * 修改
+     */
+    @PostMapping("/update")
+#if($openShiro)
+    @RequiresPermissions("${moduleName}:${pathName}:update")
+#end
+#if($openSwagger)
+    @ApiOperation("更新")
+#end
+    public R update(@RequestBody ${className} ${classname}){
+##        ValidatorUtils.validateEntity(${classname});
+        ${classname}Service.updateById(${classname});//全部更新
+        return R.ok();
+    }
+
+    /**
+     * 删除
+     */
+    @PostMapping("/delete")
+#if($openShiro)
+    @RequiresPermissions("${moduleName}:${pathName}:delete")
+#end
+#if($openSwagger)
+    @ApiOperation("删除")
+#end
+    public R delete(@RequestBody ${pk.attrType}[] ${pk.attrname}s){
+        ${classname}Service.removeByIds(Arrays.asList(${pk.attrname}s));
+        return R.ok();
+    }
+
+}

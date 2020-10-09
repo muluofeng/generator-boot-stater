@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>欢迎页</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="libs/jquery.min.js"></script>
+    <script src="libs/bootstrap.min.js"></script>
+    <script src="libs/vue.min.js"></script>
+</head>
+<body >
+    <div id="rrapp" class="container">
+        <div class="row clearfix">
+            <div >
+                <form role="form"  class="form-horizontal"   id="config">
+
+
+                    <div class="form-group">
+                        <label for="generatorBackendPath" class="col-sm-2 control-label">后端代码生成输出路径</label>
+                        <div class="col-sm-6">
+                            <input type="text"  v-model="configData.generatorBackendPath" class="form-control"  name="generatorBackendPath" id="generatorBackendPath" />
+                        </div>
+                        <div class="col-sm-4"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="generatorFrontPath" class="col-sm-2 control-label">前端代码生成输出路径</label>
+                        <div class="col-sm-6">
+                            <input type="text"  v-model="configData.generatorFrontPath" class="form-control"  name="generatorFrontPath" id="generatorFrontPath" />
+                        </div>
+                        <div class="col-sm-4"></div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="package" class="col-sm-2 control-label">后端项目包名</label>
+                        <div class="col-sm-6">
+                            <input type="text"  v-model="configData.package" class="form-control"  name="package" id="package" />
+                        </div>
+                        <div class="col-sm-4"></div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="author" class="col-sm-2 control-label">作者</label>
+                        <div class="col-sm-6">
+                            <input type="text"  v-model="configData.author" class="form-control"  name="author" id="author" placeholder="请输入名字" />
+                        </div>
+                        <div class="col-sm-4">class注释作者</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="col-sm-2 control-label">邮箱</label>
+                        <div class="col-sm-4">
+                            <input type="email" class="form-control"   v-model="configData.email" id="email" name="email"/>
+                        </div>
+                        <div class="col-sm-6">class注释邮箱</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="col-sm-2 control-label">表前缀</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="tablePrefix" v-model="configData.tablePrefix" name="tablePrefix"
+                                   placeholder="类名不会包含表前缀,多个表前缀使用逗号分割"/>
+                        </div>
+                        <div class="col-sm-6">生成class 忽略前缀 比如 sys_user ，如果忽略sys_,那么生成的class 为 User,否则为SysUser</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="openLombok" class="col-sm-2 control-label">开启lombok</label>
+                        <div class="col-sm-4">
+                            <input type="checkbox" v-model="configData.openLombok"   id="openLombok" name="openLombok">
+                        </div>
+                        <div class="col-sm-6">开启lombok ，会在实体类上使用@Getter  @Setter</div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="openSwagger" class="col-sm-2 control-label">开启swagger</label>
+                        <div class="col-sm-4">
+                            <input type="checkbox"  v-model="configData.openSwagger"  id="openSwagger" name="openSwagger">
+                        </div>
+                        <div class="col-sm-6">开启swagger ，开启 实体上就会加上  swagger 注解,controller 会加上@Api、@ApiOperation</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="serviceInterface" class="col-sm-2 control-label">开启service interface</label>
+                        <div class="col-sm-4">
+                            <input type="checkbox"  v-model="configData.serviceInterface" id="serviceInterface" name="serviceInterface">
+                        </div>
+                        <div class="col-sm-6">开启service interface ，开启service 会有 interface 和实现类 impl</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="onlyBackend" class="col-sm-2 control-label">只生成后端代码</label>
+                        <div class="col-sm-4">
+                            <input type="checkbox"  v-model="configData.onlyBackend" id="onlyBackend" name="onlyBackend">
+                        </div>
+                        <div class="col-sm-6">只生成后端代码</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="openFrontLowercase" class="col-sm-2 control-label">前端文件名 是否开启 小写</label>
+                        <div class="col-sm-4">
+                            <input type="checkbox"  v-model="configData.openFrontLowercase" id="openFrontLowercase" name="openFrontLowercase">
+                        </div>
+                        <div class="col-sm-6">如果启动大小写 比如 vue  路由加载就会出现问题</div>
+                    </div>
+
+
+                        <div class="m-auto">
+                            <div> <button @click="config" class="btn btn-default">保存</button></div>
+                        </div>
+
+                </form>
+            </div>
+        </div>
+
+
+        <div class="modal-dialog" id="myModal" role="document">
+
+        </div>
+</body>
+<script src="js/config.js"></script>
+
+</html>
